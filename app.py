@@ -45,7 +45,7 @@ BACKGROUND
 ========================================================= */
 
 .stApp {
-    background-color: #050505;
+    background: #050505;
     overflow: hidden;
 }
 
@@ -62,32 +62,25 @@ BACKGROUND
 }
 
 .stApp::before {
-    background: radial-gradient(circle,
-    rgba(139,92,246,0.25) 0%,
-    rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, rgba(0,0,0,0) 70%);
     top: -100px;
     left: -100px;
 }
 
 .stApp::after {
-    background: radial-gradient(circle,
-    rgba(6,182,212,0.25) 0%,
-    rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(6,182,212,0.25) 0%, rgba(0,0,0,0) 70%);
     bottom: -100px;
     right: -100px;
     animation-delay: -10s;
 }
 
 @keyframes float {
-
     0% {
         transform: translate(0,0) scale(1);
     }
-
     50% {
         transform: translate(100px,100px) scale(1.1);
     }
-
     100% {
         transform: translate(-50px,150px) scale(0.9);
     }
@@ -126,10 +119,7 @@ GLASS EFFECT
 .glass {
     background: rgba(20,20,25,0.4);
     border: 1px solid rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-left: 1px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 40px;
     box-shadow:
@@ -145,31 +135,15 @@ TITLE
     text-align: center;
     font-size: 4.5rem;
     font-weight: 800;
-    line-height: 1.2;
-
-    background: linear-gradient(
-        to right,
-        #a855f7,
-        #06b6d4,
-        #a855f7
-    );
-
+    background: linear-gradient(to right, #a855f7, #06b6d4, #a855f7);
     background-size: 200% auto;
-
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
     margin-bottom: 10px;
-
     animation: gradientFlow 5s linear infinite;
-
-    filter: drop-shadow(
-        0 0 20px rgba(168,85,247,0.3)
-    );
 }
 
 @keyframes gradientFlow {
-
     to {
         background-position: 200% center;
     }
@@ -178,7 +152,7 @@ TITLE
 .subtitle {
     text-align: center;
     color: #94a3b8;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 40px;
 }
 
@@ -187,30 +161,17 @@ TEXT AREA
 ========================================================= */
 
 .stTextArea textarea {
-
     background: rgba(10,10,15,0.6) !important;
-
     border: 1px solid rgba(255,255,255,0.1) !important;
-
     border-radius: 16px !important;
-
     color: #f8fafc !important;
-
     font-size: 1.1rem !important;
-
     padding: 20px !important;
-
     min-height: 220px !important;
-
-    transition: all 0.3s ease !important;
 }
 
 .stTextArea textarea:focus {
-
     border-color: #8b5cf6 !important;
-
-    background: rgba(15,15,20,0.8) !important;
-
     box-shadow:
         0 0 0 4px rgba(139,92,246,0.1) !important;
 }
@@ -220,83 +181,43 @@ BUTTON
 ========================================================= */
 
 .stButton button {
-
     width: 100%;
     height: 56px;
-
     border: none;
-
     border-radius: 16px;
-
-    background: linear-gradient(
-        135deg,
-        #8b5cf6 0%,
-        #06b6d4 100%
-    );
-
+    background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
     color: white;
-
     font-size: 1.1rem;
-
     font-weight: 600;
-
-    transition: all 0.3s ease;
-
-    box-shadow:
-        0 4px 15px rgba(139,92,246,0.3);
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(139,92,246,0.3);
 }
 
 .stButton button:hover {
-
     transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 25px rgba(139,92,246,0.5);
+    box-shadow: 0 8px 25px rgba(139,92,246,0.5);
 }
 
 /* =========================================================
-METRIC CARDS
+METRIC CARD
 ========================================================= */
 
 .metric-card {
-
     background: rgba(255,255,255,0.03);
-
     border: 1px solid rgba(255,255,255,0.05);
-
     border-radius: 20px;
-
     padding: 24px;
-
     text-align: center;
 }
 
-.metric-card:hover {
-
-    transform: translateY(-4px);
-
-    transition: 0.3s ease;
-}
-
 .metric-title {
-
     color: #94a3b8;
-
     font-size: 0.9rem;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
 }
 
 .metric-value {
-
-    font-size: 2.2rem;
-
+    font-size: 2rem;
     font-weight: 700;
-
-    margin-top: 8px;
-
     color: white;
 }
 
@@ -305,23 +226,13 @@ RESULT BOX
 ========================================================= */
 
 .result-box {
-
     background: rgba(16,185,129,0.1);
-
     border: 1px solid rgba(16,185,129,0.2);
-
     border-radius: 16px;
-
     padding: 20px;
-
     margin-top: 24px;
-
     color: #34d399;
-
     font-size: 1.2rem;
-
-    font-weight: 600;
-
     text-align: center;
 }
 
@@ -330,21 +241,13 @@ CORRECTED BOX
 ========================================================= */
 
 .corrected-box {
-
     background: rgba(30,41,59,0.5);
-
     border-left: 4px solid #10b981;
-
     padding: 24px;
-
     border-radius: 16px;
-
     margin-top: 20px;
-
     font-size: 1.1rem;
-
     line-height: 1.8;
-
     color: #f1f5f9;
 }
 
@@ -353,17 +256,11 @@ ERROR CARD
 ========================================================= */
 
 .error-card {
-
     background: rgba(239,68,68,0.05);
-
     border-left: 4px solid #ef4444;
-
     border-radius: 12px;
-
     padding: 16px;
-
     margin-top: 16px;
-
     color: #fca5a5;
 }
 
@@ -384,13 +281,9 @@ FOOTER
 ========================================================= */
 
 .footer {
-
     text-align: center;
-
     margin-top: 40px;
-
     color: #64748b;
-
     font-size: 0.9rem;
 }
 
@@ -402,10 +295,6 @@ RESPONSIVE
 
     .main-title {
         font-size: 2.5rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
     }
 
     .glass {
@@ -429,26 +318,25 @@ with st.sidebar:
     st.markdown("## 🤖 About")
 
     st.write("""
-AI-powered writing assistant using NLP.
+    AI-powered writing assistant using NLP.
 
-Features:
-- Grammar correction
-- Spelling correction
-- Punctuation fixing
-- Writing enhancement
-- AI suggestions
-""")
+    Features:
+    - Grammar correction
+    - Spelling correction
+    - Punctuation fixing
+    - Writing enhancement
+    """)
 
     st.markdown("---")
 
     st.markdown("## 🚀 Technologies")
 
     st.write("""
-✅ Streamlit  
-✅ Python  
-✅ NLP  
-✅ LanguageTool
-""")
+    ✅ Streamlit  
+    ✅ Python  
+    ✅ NLP  
+    ✅ LanguageTool  
+    """)
 
     st.markdown("---")
 
@@ -461,7 +349,7 @@ Features:
 st.markdown("<div class='glass'>", unsafe_allow_html=True)
 
 # =========================================================
-# HEADER
+# TITLE
 # =========================================================
 
 st.markdown("""
@@ -541,7 +429,7 @@ input_text = st.text_area(
 )
 
 # =========================================================
-# TEXT STATS
+# STATS
 # =========================================================
 
 word_count = len(input_text.split())
@@ -575,7 +463,7 @@ if st.button("🚀 Check Grammar"):
 
             try:
 
-                # Detect Errors
+                # Grammar Check
                 matches = tool.check(input_text)
 
                 # Correct Text
@@ -585,7 +473,7 @@ if st.button("🚀 Check Grammar"):
                 )
 
                 # =================================================
-                # RESULT BOX
+                # RESULT
                 # =================================================
 
                 st.markdown("""
@@ -611,7 +499,7 @@ if st.button("🚀 Check Grammar"):
                 """, unsafe_allow_html=True)
 
                 # =================================================
-                # ERROR DETAILS
+                # DETECTED ISSUES
                 # =================================================
 
                 if len(matches) > 0:

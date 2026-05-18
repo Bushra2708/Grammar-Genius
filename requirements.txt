@@ -1,2 +1,2 @@
 streamlit
-language-tool-python==2.7.1
+language-tool-python
