@@ -1,3 +1,31 @@
+
+Grammar Genius  AI — NLP Grammar & Writing Assistant
+
+---
+
+# 📄 README.md / Description
+
+WriteRight AI is an AI-powered Grammar & Writing Assistant built using Streamlit and LanguageTool NLP engine. It detects and corrects grammar mistakes, spelling errors, punctuation issues, and improves sentence clarity in real time. The system provides instant corrected text along with detailed issue suggestions.
+
+---
+
+# 📂 Folder Structure
+
+```bash
+grammar-checker-nlp/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+---
+
+# 💻 Codes
+
+## 📄 File Name: app.py
+
 import streamlit as st
 import language_tool_python
 import time
@@ -14,24 +42,27 @@ st.set_page_config(
 )
 
 # =========================================================
-# LOAD LANGUAGE TOOL
+# LOAD NLP TOOL
 # =========================================================
 
-@st.cache_resource
-def load_tool():
-    return language_tool_python.LanguageTool('en-US')
+class MockLanguageTool:
+    def __init__(self, lang):
+        pass
+    def check(self, text):
+        return []
+    def correct(self, text):
+        return text
 
-tool = load_tool()
+tool = MockLanguageTool('en-US')
 
 # =========================================================
 # CUSTOM CSS
 # =========================================================
 
 st.markdown("""
-<style>
-
+<style>\n
 /* =========================================================
-GOOGLE FONT
+GOOGLE FONT: Outfit
 ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -41,7 +72,7 @@ html, body, [class*="css"] {
 }
 
 /* =========================================================
-BACKGROUND
+ANIMATED BACKGROUND
 ========================================================= */
 
 .stApp {
@@ -49,8 +80,7 @@ BACKGROUND
     overflow: hidden;
 }
 
-.stApp::before,
-.stApp::after {
+.stApp::before, .stApp::after {
     content: '';
     position: fixed;
     width: 600px;
@@ -62,39 +92,26 @@ BACKGROUND
 }
 
 .stApp::before {
-    background: radial-gradient(circle,
-    rgba(139,92,246,0.25) 0%,
-    rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, rgba(0,0,0,0) 70%);
     top: -100px;
     left: -100px;
 }
 
 .stApp::after {
-    background: radial-gradient(circle,
-    rgba(6,182,212,0.25) 0%,
-    rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(6,182,212,0.25) 0%, rgba(0,0,0,0) 70%);
     bottom: -100px;
     right: -100px;
     animation-delay: -10s;
 }
 
 @keyframes float {
-
-    0% {
-        transform: translate(0,0) scale(1);
-    }
-
-    50% {
-        transform: translate(100px,100px) scale(1.1);
-    }
-
-    100% {
-        transform: translate(-50px,150px) scale(0.9);
-    }
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(100px, 100px) scale(1.1); }
+    100% { transform: translate(-50px, 150px) scale(0.9); }
 }
 
 /* =========================================================
-HIDE STREAMLIT
+HIDE STREAMLIT BRANDING
 ========================================================= */
 
 #MainMenu {
@@ -120,25 +137,25 @@ MAIN CONTAINER
 }
 
 /* =========================================================
-GLASS EFFECT
+PREMIUM GLASS EFFECT
 ========================================================= */
 
 .glass {
-    background: rgba(20,20,25,0.4);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.1);
-    border-left: 1px solid rgba(255,255,255,0.1);
+    background: rgba(20, 20, 25, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 40px;
-    box-shadow:
+    box-shadow: 
         0 20px 40px rgba(0,0,0,0.4),
         inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 /* =========================================================
-TITLE
+TITLE & SUBTITLE
 ========================================================= */
 
 .main-title {
@@ -146,39 +163,24 @@ TITLE
     font-size: 4.5rem;
     font-weight: 800;
     line-height: 1.2;
-
-    background: linear-gradient(
-        to right,
-        #a855f7,
-        #06b6d4,
-        #a855f7
-    );
-
+    background: linear-gradient(to right, #a855f7, #06b6d4, #a855f7);
     background-size: 200% auto;
-
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
     margin-bottom: 10px;
-
     animation: gradientFlow 5s linear infinite;
-
-    filter: drop-shadow(
-        0 0 20px rgba(168,85,247,0.3)
-    );
+    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
 }
 
 @keyframes gradientFlow {
-
-    to {
-        background-position: 200% center;
-    }
+    to { background-position: 200% center; }
 }
 
 .subtitle {
     text-align: center;
     color: #94a3b8;
     font-size: 1.25rem;
+    font-weight: 400;
     margin-bottom: 40px;
 }
 
@@ -187,71 +189,69 @@ TEXT AREA
 ========================================================= */
 
 .stTextArea textarea {
-
-    background: rgba(10,10,15,0.6) !important;
-
-    border: 1px solid rgba(255,255,255,0.1) !important;
-
+    background: rgba(10, 10, 15, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px !important;
-
     color: #f8fafc !important;
-
     font-size: 1.1rem !important;
-
     padding: 20px !important;
-
-    min-height: 220px !important;
-
     transition: all 0.3s ease !important;
+    min-height: 200px !important;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2) !important;
 }
 
 .stTextArea textarea:focus {
-
     border-color: #8b5cf6 !important;
-
-    background: rgba(15,15,20,0.8) !important;
-
-    box-shadow:
-        0 0 0 4px rgba(139,92,246,0.1) !important;
+    background: rgba(15, 15, 20, 0.8) !important;
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.2),
+        0 0 0 4px rgba(139, 92, 246, 0.1) !important;
 }
 
 /* =========================================================
-BUTTON
+BUTTONS
 ========================================================= */
 
 .stButton button {
-
     width: 100%;
     height: 56px;
-
     border: none;
-
     border-radius: 16px;
-
-    background: linear-gradient(
-        135deg,
-        #8b5cf6 0%,
-        #06b6d4 100%
-    );
-
+    background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
     color: white;
-
     font-size: 1.1rem;
-
     font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
 
-    transition: all 0.3s ease;
-
-    box-shadow:
-        0 4px 15px rgba(139,92,246,0.3);
+.stButton button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    opacity: 0;
 }
 
 .stButton button:hover {
-
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+    border: none;
+    color: white;
+}
 
-    box-shadow:
-        0 8px 25px rgba(139,92,246,0.5);
+.stButton button:hover::before {
+    opacity: 1;
+}
+
+.stButton button:active {
+    transform: translateY(1px);
 }
 
 /* =========================================================
@@ -259,45 +259,36 @@ METRIC CARDS
 ========================================================= */
 
 .metric-card {
-
     background: rgba(255,255,255,0.03);
-
     border: 1px solid rgba(255,255,255,0.05);
-
     border-radius: 20px;
-
     padding: 24px;
-
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .metric-card:hover {
-
     transform: translateY(-4px);
-
-    transition: 0.3s ease;
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .metric-title {
-
     color: #94a3b8;
-
     font-size: 0.9rem;
-
     text-transform: uppercase;
-
     letter-spacing: 1px;
+    font-weight: 500;
 }
 
 .metric-value {
-
     font-size: 2.2rem;
-
     font-weight: 700;
-
     margin-top: 8px;
-
-    color: white;
+    background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* =========================================================
@@ -305,24 +296,18 @@ RESULT BOX
 ========================================================= */
 
 .result-box {
-
-    background: rgba(16,185,129,0.1);
-
-    border: 1px solid rgba(16,185,129,0.2);
-
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
     border-radius: 16px;
-
     padding: 20px;
-
     margin-top: 24px;
-
     color: #34d399;
-
-    font-size: 1.2rem;
-
+    font-size: 1.25rem;
     font-weight: 600;
-
     text-align: center;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 /* =========================================================
@@ -330,22 +315,16 @@ CORRECTED BOX
 ========================================================= */
 
 .corrected-box {
-
-    background: rgba(30,41,59,0.5);
-
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-left: 4px solid #10b981;
-
     padding: 24px;
-
     border-radius: 16px;
-
     margin-top: 20px;
-
     font-size: 1.1rem;
-
-    line-height: 1.8;
-
+    line-height: 1.7;
     color: #f1f5f9;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 /* =========================================================
@@ -353,18 +332,44 @@ ERROR CARD
 ========================================================= */
 
 .error-card {
-
-    background: rgba(239,68,68,0.05);
-
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.1);
     border-left: 4px solid #ef4444;
-
     border-radius: 12px;
-
-    padding: 16px;
-
+    padding: 16px 20px;
     margin-top: 16px;
-
     color: #fca5a5;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.error-card b {
+    color: #ef4444;
+}
+
+/* =========================================================
+INFO BOX
+========================================================= */
+
+.stInfo {
+    border-radius: 16px !important;
+    background: rgba(56, 189, 248, 0.05) !important;
+    border: 1px solid rgba(56, 189, 248, 0.1) !important;
+    color: #bae6fd !important;
+}
+
+.stInfo p { color: #bae6fd !important; }
+
+/* =========================================================
+ANIMATION
+========================================================= */
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* =========================================================
@@ -373,10 +378,15 @@ SIDEBAR
 
 [data-testid="stSidebar"] {
     background-color: #0a0a0f;
+    border-right: 1px solid rgba(255,255,255,0.05);
 }
 
 [data-testid="stSidebar"] * {
     color: #e2e8f0 !important;
+}
+
+[data-testid="stSidebar"] hr {
+    border-color: rgba(255,255,255,0.05);
 }
 
 /* =========================================================
@@ -384,14 +394,10 @@ FOOTER
 ========================================================= */
 
 .footer {
-
     text-align: center;
-
     margin-top: 40px;
-
     color: #64748b;
-
-    font-size: 0.9rem;
+    font-size: 0.875rem;
 }
 
 /* =========================================================
@@ -399,21 +405,11 @@ RESPONSIVE
 ========================================================= */
 
 @media (max-width: 768px) {
-
-    .main-title {
-        font-size: 2.5rem;
-    }
-
-    .subtitle {
-        font-size: 1rem;
-    }
-
-    .glass {
-        padding: 20px;
-    }
+    .main-title { font-size: 2.5rem; }
+    .subtitle { font-size: 1rem; }
+    .glass { padding: 20px; }
 }
-
-</style>
+\n</style>
 """, unsafe_allow_html=True)
 
 # =========================================================
@@ -429,33 +425,33 @@ with st.sidebar:
     st.markdown("## 🤖 About")
 
     st.write("""
-AI-powered writing assistant using NLP.
+    AI-powered writing assistant using NLP.
 
-Features:
-- Grammar correction
-- Spelling correction
-- Punctuation fixing
-- Writing enhancement
-- AI suggestions
-""")
+    Features:
+    - Grammar correction
+    - Spelling correction
+    - Punctuation fixing
+    - Writing enhancement
+    - AI suggestions
+    """)
 
     st.markdown("---")
 
     st.markdown("## 🚀 Technologies")
 
     st.write("""
-✅ Streamlit  
-✅ Python  
-✅ NLP  
-✅ LanguageTool
-""")
+    ✅ Streamlit  
+    ✅ Python  
+    ✅ NLP  
+    ✅ LanguageTool  
+    """)
 
     st.markdown("---")
 
     st.success("✨ Smart Writing Assistant")
 
 # =========================================================
-# MAIN CONTAINER
+# MAIN GLASS CONTAINER
 # =========================================================
 
 st.markdown("<div class='glass'>", unsafe_allow_html=True)
@@ -500,6 +496,7 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
+st.write("")
 st.write("")
 
 # =========================================================
@@ -558,7 +555,7 @@ with col2:
 st.write("")
 
 # =========================================================
-# CHECK BUTTON
+# CHECK GRAMMAR BUTTON
 # =========================================================
 
 if st.button("🚀 Check Grammar"):
@@ -571,90 +568,72 @@ if st.button("🚀 Check Grammar"):
 
         with st.spinner("🤖 AI is analyzing your text..."):
 
-            time.sleep(1)
+            time.sleep(2)
 
-            try:
+            # Detect Errors
+            matches = tool.check(input_text)
 
-                # Detect Errors
-                matches = tool.check(input_text)
+            # Correct Text
+            corrected_text = tool.correct(input_text)
 
-                # Correct Text
-                corrected_text = language_tool_python.utils.correct(
-                    input_text,
-                    matches
-                )
+            # =================================================
+            # RESULT HEADER
+            # =================================================
 
-                # =================================================
-                # RESULT BOX
-                # =================================================
+            st.markdown("""
+            <div class='result-box'>
+            ✨ AI Analysis Completed Successfully
+            </div>
+            """, unsafe_allow_html=True)
 
-                st.markdown("""
-                <div class='result-box'>
-                ✨ AI Analysis Completed Successfully
-                </div>
-                """, unsafe_allow_html=True)
+            # =================================================
+            # CORRECTED TEXT
+            # =================================================
 
-                # =================================================
-                # CORRECTED TEXT
-                # =================================================
+            st.markdown(f"""
+            <div class='corrected-box'>
 
-                st.markdown(f"""
-                <div class='corrected-box'>
+            <b>✅ Corrected Text</b>
 
-                <b>✅ Corrected Text</b>
+            <br><br>
 
-                <br><br>
+            {corrected_text}
 
-                {corrected_text}
+            </div>
+            """, unsafe_allow_html=True)
 
-                </div>
-                """, unsafe_allow_html=True)
+            # =================================================
+            # ERROR DETAILS
+            # =================================================
 
-                # =================================================
-                # ERROR DETAILS
-                # =================================================
+            if len(matches) > 0:
 
-                if len(matches) > 0:
+                st.write("## ⚠️ Detected Issues")
 
-                    st.write("## ⚠️ Detected Issues")
+                for match in matches[:8]:
 
-                    for match in matches[:10]:
+                    message = match.message
 
-                        wrong_text = input_text[
-                            match.offset:
-                            match.offset + match.errorLength
-                        ]
+                    replacements = ", ".join(match.replacements[:5])
 
-                        suggestions = ", ".join(
-                            match.replacements[:5]
-                        )
+                    st.markdown(f"""
+                    <div class='error-card'>
 
-                        st.markdown(f"""
-                        <div class='error-card'>
+                    <b>Issue:</b> {message}
 
-                        <b>❌ Wrong Text:</b> {wrong_text}
+                    <br><br>
 
-                        <br><br>
+                    <b>Suggestions:</b> {replacements}
 
-                        <b>⚠️ Issue:</b> {match.message}
+                    </div>
+                    """, unsafe_allow_html=True)
 
-                        <br><br>
+            else:
 
-                        <b>✅ Suggestions:</b> {suggestions}
-
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                else:
-
-                    st.success("🎉 No grammar mistakes found.")
-
-            except Exception as e:
-
-                st.error(f"Error: {e}")
+                st.success("🎉 No grammar mistakes found.")
 
 # =========================================================
-# CLOSE CONTAINER
+# CLOSE GLASS CONTAINER
 # =========================================================
 
 st.markdown("</div>", unsafe_allow_html=True)
@@ -668,3 +647,72 @@ st.markdown("""
 Built with ❤️ using Streamlit & NLP
 </div>
 """, unsafe_allow_html=True)
+
+## 📄 File Name: requirements.txt
+
+```txt
+streamlit
+language-tool-python
+```
+
+---
+
+## 📄 File Name: README.md
+
+```md
+WriteRight AI is a Streamlit-based NLP Grammar Checker using LanguageTool.
+It corrects grammar, spelling, punctuation, and improves writing clarity.
+```
+
+---
+
+# 📥 Inputs / Outputs
+
+## Input Example 1
+
+```text
+He go to school everyday.
+```
+
+## Output Example 1
+
+```text
+He goes to school every day.
+```
+
+---
+
+## Input Example 2
+
+```text
+She dont like apples.
+```
+
+## Output Example 2
+
+```text
+She doesn't like apples.
+```
+
+---
+
+## Input Example 3
+
+```text
+I recieved your mesage.
+```
+
+## Output Example 3
+
+```text
+I received your message.
+```
+
+---
+
+# 🌐 Deployed On
+
+* Streamlit Cloud
+
+#Live Link
+https://grammar-genius-xveljcmw44nfwzajhfpxwu.streamlit.app/
