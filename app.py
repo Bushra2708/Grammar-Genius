@@ -19,7 +19,8 @@ st.set_page_config(
 
 @st.cache_resource
 def load_tool():
-    return language_tool_python.LanguageTool('en-US')
+    # Use reliable Public API endpoint to avoid Java dependency on Render
+    return language_tool_python.LanguageTool('en-US', remote_server='https://api.languagetoolplus.com/')
 
 tool = load_tool()
 
@@ -394,28 +395,19 @@ st.write("")
 # EXAMPLE BUTTONS
 # =========================================================
 
+def set_incorrect_example():
+    st.session_state.user_input = "He go to school everyday and dont likes homework."
+
+def set_correct_example():
+    st.session_state.user_input = "He goes to school every day and doesn't like homework."
+
 col1, col2 = st.columns(2)
 
 with col1:
-
-    if st.button("❌ Try Incorrect Example"):
-
-        st.session_state.example = (
-            "He go to school everyday and dont likes homework."
-        )
+    st.button("❌ Try Incorrect Example", on_click=set_incorrect_example)
 
 with col2:
-
-    if st.button("✅ Try Correct Example"):
-
-        st.session_state.example = (
-            "He goes to school every day and doesn't like homework."
-        )
-
-default_text = ""
-
-if "example" in st.session_state:
-    default_text = st.session_state.example
+    st.button("✅ Try Correct Example", on_click=set_correct_example)
 
 # =========================================================
 # TEXT AREA
@@ -423,7 +415,7 @@ if "example" in st.session_state:
 
 input_text = st.text_area(
     "✍️ Enter your text",
-    value=default_text,
+    key="user_input",
     height=220,
     placeholder="Type or paste your paragraph here..."
 )
